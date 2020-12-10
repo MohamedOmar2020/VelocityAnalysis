@@ -1,0 +1,4 @@
+
+
+
+Seurat <- as.Seurat(ldat, cells = "obs_names", features = "gene_name")

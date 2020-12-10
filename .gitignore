@@ -1,0 +1,7 @@
+Data/
+Objs/
+renv/
+.Rprofile
+.Rhistory
+Velocity.Rproj
+renv.lock
