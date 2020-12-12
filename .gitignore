@@ -5,3 +5,4 @@ renv/
 .Rhistory
 Velocity.Rproj
 renv.lock
+.Rproj.user

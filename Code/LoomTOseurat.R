@@ -1,6 +1,9 @@
 library(loomR)
 library(Seurat)
 
+# Load the processed seurat object from Anxo
+Seurat_Intestine <- readRDS("./Data/RDS_umap_Epithelium_AMO1")
+
 ## Load loom data
 ldat <- connect("~/Documents/Research/Projects/Velocity/Data/BigLoomFiltered.loom", mode = "r+", skip.validate = T)
 
@@ -8,7 +11,8 @@ ldat$row.attrs
 
 Seurat <- as.Seurat(ldat, cells = "obs_names", features = "gene_name")
 
-Seurat2 <- Seurat
+Seurat[["RNA"]] <- Seurat[["spliced"]]
+
 VlnPlot(Seurat, features = c("Sparc", "Ftl1", "Junb", "Ccl4"), ncol = 2, pt.size = 0.1)
 
 ldat$close_all()
@@ -21,7 +25,7 @@ head(Seurat@meta.data, 5)
 VlnPlot(Seurat, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 
 
-#Seurat <- subset(Seurat, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+Seurat <- subset(Seurat, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
 
 
 Seurat <- NormalizeData(Seurat, normalization.method = "LogNormalize")
@@ -40,8 +44,7 @@ plot1 + plot2
 
 all.genes <- rownames(Seurat)
 
-#Seurat <- ScaleData(Seurat, features = all.genes)
-Seurat <- ScaleData(Seurat)
+Seurat <- ScaleData(Seurat, features = all.genes)
 
 Seurat <- RunPCA(Seurat, features = VariableFeatures(object = Seurat))
 
@@ -53,7 +56,7 @@ VizDimLoadings(Seurat, dims = 1:2, reduction = "pca")
 DimPlot(Seurat, reduction = "pca")
 
 
-DimHeatmap(Seurat, dims = 1:10, cells = 500, balanced = TRUE)
+DimHeatmap(Seurat, dims = 1:15, cells = 500, balanced = TRUE)
 
 
 Seurat <- JackStraw(Seurat, num.replicate = 100)
@@ -69,7 +72,7 @@ ElbowPlot(Seurat)
 
 Seurat <- FindNeighbors(Seurat, dims = 1:10)
 
-Seurat <- FindClusters(Seurat, resolution = 1.5)
+Seurat <- FindClusters(Seurat, resolution = 2)
 
 head(Idents(Seurat), 5)
 
@@ -77,20 +80,23 @@ Seurat <- RunUMAP(Seurat, dims = 1:10)
 
 DimPlot(Seurat, reduction = "umap")
 
+
 Clusters <- IntestineSeurat$seurat_clusters
 Cells <- intersect(colnames(IntestineSeurat), colnames(Seurat))
 Seurat <- Seurat[, Cells]
   
 Seurat$seurat_clusters <- Clusters  
   
-cluster1.markers <- FindMarkers(Seurat, ident.1 = 1, min.pct = 0.25)
+cluster1.markers <- FindMarkers(Seurat, ident.1 = 1, min.pct = 0.2)
 
 cluster1.markers_x <- FindMarkers(IntestineSeurat, ident.1 = "Enterocytes_wtnormal", min.pct = 0.25)
 
   
+##############################################3
+ldat2 <- NormalizeData(object = ldat, chunk.size = 1000, scale.factor = 10000)
+
   
-  
-  
+ldat$close_all()  
   
   
 

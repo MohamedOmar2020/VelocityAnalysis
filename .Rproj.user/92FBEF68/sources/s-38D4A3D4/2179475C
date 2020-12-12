@@ -1,7 +1,7 @@
 {
     "id": "2179475C",
-    "path": null,
-    "project_path": null,
+    "path": "~/Documents/Research/Projects/Velocity/Code/LoomTOseurat.R",
+    "project_path": "Code/LoomTOseurat.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
@@ -11,15 +11,15 @@
     "relative_order": 5,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "4,0",
-        "scrollLine": "0"
+        "cursorPosition": "85,16",
+        "scrollLine": "77"
     },
     "folds": "",
-    "lastKnownWriteTime": 1607543875,
-    "encoding": "",
+    "lastKnownWriteTime": 1607712081,
+    "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1607545812513,
+    "last_content_update": 1607713423231,
     "read_only": false,
     "read_only_alternatives": []
 }
