@@ -29,7 +29,7 @@ write.csv(Clusters, file = "clusters.csv", row.names = F)
 
 #############################3
 ## to extract the colors >> not working yet
-p <- Seurat::TSNEPlot(IntestineSeurat, do.return = T) # Generate the tSNE plot, but save it as an object
+p <- Seurat::DimPlot(IntestineSeurat) # Generate the tSNE plot, but save it as an object
 pbuild <- ggplot2::ggplot_build(p) # Use ggplot_build to deconstruct the ggplot object
 pdata <- pbuild$data[[1]] # Pull the data used for the plot
 #The colors used, in hexadecimal, are in the colour column of pdata, the groups in the group column.
@@ -39,5 +39,8 @@ pdata <- pbuild$data[[1]] # Pull the data used for the plot
 pdata <-  pdata[order(pdata$group), ] # Order the plot data by group
 ucols <- unique(pdata$colour) # Get a vector of unique colors
 names(ucols) <- unique(pdata$group) # Add the groups to the vector of colors as names
+names(ucols) <- unique(IntestineSeurat$sample.cell_type)
+
+write.csv(ucols, file = "cluster_colors.csv")
 
 
