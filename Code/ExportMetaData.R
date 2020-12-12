@@ -7,23 +7,37 @@ rm(list = ls())
 
 library(Seurat)
 
+
+# Load the seurat object
 IntestineSeurat <- readRDS("~/Desktop/RDS_umap_Epithelium_AMO1")
 
 
+
+# Save cell ID
 write.csv(Cells(IntestineSeurat), file = "cellID_obs.csv", row.names = FALSE)
 
-CellID <- Cells(IntestineSeurat)
-CellID <- gsub("\\-.+", "", CellID)
-
-write.csv(Cells(IntestineSeurat), file = "cellID_obs.csv", row.names = FALSE)
-
+# Save UMAP coords
 write.csv(Embeddings(IntestineSeurat, reduction = "umap"), file = "cell_embeddings.csv")
 
+# Save Cluster annotations
 Clusters <- data.frame(IntestineSeurat$sample.cell_type)
 Clusters$CellID <- rownames(Clusters)
 write.csv(Clusters, file = "clusters.csv", row.names = F)
 
-data.frame(IntestineSeurat$sample.cell_type)
 
 
-Idents(IntestineSeurat)
+
+#############################3
+## to extract the colors >> not working yet
+p <- Seurat::TSNEPlot(IntestineSeurat, do.return = T) # Generate the tSNE plot, but save it as an object
+pbuild <- ggplot2::ggplot_build(p) # Use ggplot_build to deconstruct the ggplot object
+pdata <- pbuild$data[[1]] # Pull the data used for the plot
+#The colors used, in hexadecimal, are in the colour column of pdata, the groups in the group column.
+
+#If you want a vector of the colors used you can do the following:
+  
+pdata <-  pdata[order(pdata$group), ] # Order the plot data by group
+ucols <- unique(pdata$colour) # Get a vector of unique colors
+names(ucols) <- unique(pdata$group) # Add the groups to the vector of colors as names
+
+
