@@ -8,7 +8,7 @@ rm(list = ls())
 library(Seurat)
 
 
-# Load the seurat object
+# Load the seurat objec
 IntestineSeurat <- readRDS("~/Desktop/RDS_umap_Epithelium_AMO1")
 
 
