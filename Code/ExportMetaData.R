@@ -20,7 +20,7 @@ write.csv(Cells(IntestineSeurat), file = "cellID_obs.csv", row.names = FALSE)
 write.csv(Embeddings(IntestineSeurat, reduction = "umap"), file = "cell_embeddings.csv")
 
 # Save Cluster annotations
-Clusters <- data.frame(IntestineSeurat$sample.cell_type)
+Clusters <- data.frame(Seurat_Intestine$seurat_clusters)
 Clusters$CellID <- rownames(Clusters)
 write.csv(Clusters, file = "clusters.csv", row.names = F)
 
