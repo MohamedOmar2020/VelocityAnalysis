@@ -93,8 +93,9 @@ DimPlot(Seurat, reduction = "umap")
 #Seurat$seurat_clusters <- Clusters  
   
 cluster1.markers <- FindMarkers(Seurat, ident.1 = 0, min.pct = 0.25)
+cluster2.markers <- FindMarkers(Seurat, ident.1 = 1, min.pct = 0.25)
 
-cluster1.markers_x <- FindMarkers(Seurat_Intestine, ident.1 = "Enterocytes_wtnormal", min.pct = 0.25)
+cluster1.markers_x <- FindMarkers(Seurat_Intestine, ident.1 = "Tumor_dkot", min.pct = 0.25)
 
   
 ##############################################3
