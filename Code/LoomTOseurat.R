@@ -86,18 +86,41 @@ Seurat <- RunUMAP(Seurat, dims = 1:15)
 DimPlot(Seurat, reduction = "umap")
 
 
+
+DimPlot(Seurat_Intestine, reduction = "umap", group.by = "seurat_clusters")
+
+
 #Clusters <- IntestineSeurat$seurat_clusters
 #Cells <- intersect(colnames(IntestineSeurat), colnames(Seurat))
 #Seurat <- Seurat[, Cells]
   
 #Seurat$seurat_clusters <- Clusters  
   
-cluster1.markers <- FindMarkers(Seurat, ident.1 = 0, min.pct = 0.25)
-cluster2.markers <- FindMarkers(Seurat, ident.1 = 1, min.pct = 0.25)
+cluster1.markers <- FindMarkers(Seurat, ident.1 = 0, min.pct = 0.25) ## == Cluster 0 in Anxo (Anxa10)
+cluster2.markers <- FindMarkers(Seurat, ident.1 = 1, min.pct = 0.25) ## == Cluster 1 in Anxo (Clu) 
+cluster3.markers <- FindMarkers(Seurat, ident.1 = 2, min.pct = 0.25) # This is supposed to be stem DKO
+cluster4.markers <- FindMarkers(Seurat, ident.1 = 3, min.pct = 0.25)
+cluster5.markers <- FindMarkers(Seurat, ident.1 = 4, min.pct = 0.25)
+cluster6.markers <- FindMarkers(Seurat, ident.1 = 5, min.pct = 0.25)
+cluster7.markers <- FindMarkers(Seurat, ident.1 = 6, min.pct = 0.25)
+cluster8.markers <- FindMarkers(Seurat, ident.1 = 7, min.pct = 0.25)
+cluster9.markers <- FindMarkers(Seurat, ident.1 = 8, min.pct = 0.25)
+cluster10.markers <- FindMarkers(Seurat, ident.1 = 9, min.pct = 0.25)
+cluster11.markers <- FindMarkers(Seurat, ident.1 = 10, min.pct = 0.25)
+cluster12.markers <- FindMarkers(Seurat, ident.1 = 11, min.pct = 0.25)
+cluster13.markers <- FindMarkers(Seurat, ident.1 = 12, min.pct = 0.25)
+cluster14.markers <- FindMarkers(Seurat, ident.1 = 13, min.pct = 0.25)
 
-cluster1.markers_x <- FindMarkers(Seurat_Intestine, ident.1 = "Tumor_dkot", min.pct = 0.25)
+##########################
+VlnPlot(Seurat, features = c("Anxa10", "Cd44", "Clu", "Top2a", "Olfm4", "Fabp2", "Alpi", "Dmbt1", "Muc2", "Chgb", "Dclk1", "Lyz1"))
 
-  
+#########################3
+## In Anxo's Seurat
+Idents(Seurat_Intestine) <- Seurat_Intestine$seurat_clusters
+cluster1.markers_Anxo <- FindMarkers(Seurat_Intestine, ident.1 = 0, min.pct = 0.25)
+cluster2.markers_Anxo <- FindMarkers(Seurat_Intestine, ident.1 = 1, min.pct = 0.25)
+cluster3.markers_Anxo <- FindMarkers(Seurat_Intestine, ident.1 = 2, min.pct = 0.25)
+
 ##############################################3
 ## YEAH BABY !!!!
   
